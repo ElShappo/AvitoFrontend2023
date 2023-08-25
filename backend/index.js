@@ -10,7 +10,6 @@ app.get('/', (req, res) => {
 app.get('/games', async (req, res) => {
   let response = await fetch('https://www.freetogame.com/api/games');
   let json = await response.json();
-  console.log(json.length);
   res.send(json);
 });
 
