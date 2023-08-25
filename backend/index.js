@@ -9,7 +9,22 @@ app.get('/', (req, res) => {
 });
 
 app.get('/games', async (req, res) => {
-  let response = await fetch('https://www.freetogame.com/api/games');
+  let url;
+  let {platform, genres, sort} = req.query;
+
+  console.log(genres);
+
+  if (genres === 'any genre') {
+    url = `https://www.freetogame.com/api/games?platform=${platform}&sort-by=${sort}`;
+  } else if (typeof genres === 'string') {
+    url = `https://www.freetogame.com/api/games?platform=${platform}&sort-by=${sort}&category=${genres}`;
+  } else {
+    // should be array
+    let genresString = genres.join('.');
+    url = `https://www.freetogame.com/api/filter?platform=${platform}&sort-by=${sort}&tag=${genresString}`;
+  }
+
+  let response = await fetch(url);
   let json = await response.json();
   res.send(json);
 });
@@ -20,7 +35,14 @@ app.get('/genres', async (req, res) => {
   const html = new jsdom.JSDOM(text);
   let genres = html.window.document.querySelector(".modal-body").textContent;
   res.send(genres.trim().split(', '));
-})
+});
+
+// app.get('/genre/:category', async (req, res) => {
+//   const { category } = req.params; 
+//   let response = await fetch(`https://www.freetogame.com/api/games?category=${category}`);
+//   let json = await response.json();
+//   res.send(json);
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
