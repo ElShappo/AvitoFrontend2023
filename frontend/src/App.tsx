@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Card, List, Spin, Typography, Empty } from 'antd';
+import { Card, List, Spin, Typography, Empty, Button, Popover, Space } from 'antd';
 import './App.css'
 
 const { Title } = Typography;
@@ -82,7 +82,7 @@ function App() {
   } else {
     return (
       <div className="App">
-      <Title style={{textAlign: 'center'}}>Games</Title>
+      <Title style={{textAlign: 'center', color: 'rgb(119, 119, 188)'}}>Games</Title>
         <List
           grid={{
             gutter: 16,
@@ -101,11 +101,19 @@ function App() {
                 <img alt={item.title} src={item.thumbnail} />
               }>
                 <Meta description={
-                  <>
-                    <p>Genre: {item.genre}</p>
-                    <p>Release date: {formatDate(item.release_date)}</p>
-                    <p>Publisher: {item.publisher}</p>
-                  </>
+                  <div style={{ fontSize: "1.1em" }}>
+                    <Space size="small">
+                      <Popover content="genre">
+                        <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.genre}</Button>
+                      </Popover>
+                      <Popover content="publisher">
+                        <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.publisher}</Button>
+                      </Popover>
+                      <Popover content="release date">
+                        <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{formatDate(item.release_date)}</Button>
+                      </Popover>
+                    </Space>
+                  </div>
                 }/>
               </Card>
             </List.Item>
@@ -114,50 +122,6 @@ function App() {
     </div>
     )
   }
-
-  // return (
-  //   <>
-  //     {gamesList.length === 0 ? (
-  //       <div className="loading">
-  //         <Spin tip="Loading games..." size='large'>
-  //             <div className="content" />
-  //         </Spin>
-  //       </div>
-  //     ) : (
-  //     <div className="App">
-  //       <Title style={{textAlign: 'center'}}>Games</Title>
-  //         <List
-  //           grid={{
-  //             gutter: 16,
-  //             xs: 1,
-  //             sm: 2,
-  //             md: 4,
-  //             lg: 4,
-  //             xl: 6,
-  //             xxl: 4,
-  //           }}
-  //           pagination={{ position: 'bottom', align: 'center' }}
-  //           dataSource={gamesList}
-  //           renderItem={(item) => (
-  //             <List.Item>
-  //               <Card title={item.title} hoverable cover={
-  //                 <img alt={item.title} src={item.thumbnail} />
-  //               }>
-  //                 <Meta description={
-  //                   <>
-  //                     <p>Genre: {item.genre}</p>
-  //                     <p>Release date: {formatDate(item.release_date)}</p>
-  //                     <p>Publisher: {item.publisher}</p>
-  //                   </>
-  //                 }/>
-  //               </Card>
-  //             </List.Item>
-  //           )}
-  //         ></List>
-  //     </div>
-  //     )}
-  //   </>
-  // );
 }
 
 export default App;
