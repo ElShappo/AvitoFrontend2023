@@ -8,7 +8,7 @@
     margin: 1em;
 }
 
-.Loading {
+.loading {
     display: flex;
     flex-direction: column;
     justify-content: center;

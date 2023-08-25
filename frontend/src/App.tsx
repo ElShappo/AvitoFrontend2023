@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Card, List, Spin } from 'antd';
+import { Card, List, Spin, Typography } from 'antd';
 import './App.css'
+
+const { Title } = Typography;
+const { Meta } = Card;
 
 interface IGame {
   id: number;
@@ -34,13 +37,14 @@ function App() {
   return (
     <>
       {gamesList.length === 0 ? (
-        <div className="Loading">
-          <Spin tip="Loading" size='large'>
+        <div className="loading">
+          <Spin tip="Loading games..." size='large'>
               <div className="content" />
           </Spin>
         </div>
       ) : (
       <div className="App">
+        <Title style={{textAlign: 'center'}}>Games</Title>
           <List
             grid={{
               gutter: 16,
@@ -49,12 +53,23 @@ function App() {
               md: 4,
               lg: 4,
               xl: 6,
-              xxl: 3,
+              xxl: 4,
             }}
+            pagination={{ position: 'bottom', align: 'center' }}
             dataSource={gamesList}
             renderItem={(item) => (
               <List.Item>
-                <Card title={item.title}>Card content</Card>
+                <Card title={item.title} hoverable cover={
+                  <img alt={item.title} src={item.thumbnail} />
+                }>
+                  <Meta description={
+                    <>
+                      <p>Genre: {item.genre}</p>
+                      <p>Release date: {item.release_date}</p>
+                      <p>Publisher: {item.publisher}</p>
+                    </>
+                  }/>
+                </Card>
               </List.Item>
             )}
           ></List>
