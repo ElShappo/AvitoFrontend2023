@@ -1,6 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Card, List } from 'antd';
+import { Card, List, Spin } from 'antd';
+
+interface IGame {
+  "id": number;
+  "title": string;
+  "thumbnail": string;
+  "short_description": string;
+  "game_url": string;
+  "genre": string;
+  "platform": string
+  "publisher": string;
+  "developer": string;
+  "release_date": string;
+  "freetogame_profile_url": string;
+}
 
 function App() {
   useEffect(() => {
@@ -14,10 +28,11 @@ function App() {
     })();
   }, []);
 
-  let [gamesList, setGamesList] = useState([]);
+  let [gamesList, setGamesList] = useState<IGame[]>([]);
 
   return (
     <div className="App">
+      {gamesList.length !== 0 ? (
         <List
           grid={{
             gutter: 16,
@@ -34,7 +49,12 @@ function App() {
               <Card title={item.title}>Card content</Card>
             </List.Item>
           )}
-        />
+        ></List>
+      ) : (
+        <Spin tip="Loading">
+          <div className="content" />
+        </Spin>
+      )}
     </div>
   );
 }
