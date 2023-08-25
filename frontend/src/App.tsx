@@ -88,9 +88,9 @@ function App() {
             gutter: 16,
             xs: 1,
             sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
+            md: 2,
+            lg: 3,
+            xl: 3,
             xxl: 4,
           }}
           pagination={{ position: 'bottom', align: 'center' }}
@@ -102,7 +102,7 @@ function App() {
               }>
                 <Meta description={
                   <div style={{ fontSize: "1.1em" }}>
-                    <Space size="small">
+                    <Space size="small" wrap>
                       <Popover content="genre">
                         <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.genre}</Button>
                       </Popover>
