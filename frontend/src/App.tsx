@@ -1,19 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Card, List, Spin } from 'antd';
+import './App.css'
 
 interface IGame {
-  "id": number;
-  "title": string;
-  "thumbnail": string;
-  "short_description": string;
-  "game_url": string;
-  "genre": string;
-  "platform": string
-  "publisher": string;
-  "developer": string;
-  "release_date": string;
-  "freetogame_profile_url": string;
+  id: number;
+  title: string;
+  thumbnail: string;
+  short_description: string;
+  game_url: string;
+  genre: string;
+  platform: string
+  publisher: string;
+  developer: string;
+  release_date: string;
+  freetogame_profile_url: string;
 }
 
 function App() {
@@ -31,31 +32,35 @@ function App() {
   let [gamesList, setGamesList] = useState<IGame[]>([]);
 
   return (
-    <div className="App">
-      {gamesList.length !== 0 ? (
-        <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
-          dataSource={gamesList}
-          renderItem={(item) => (
-            <List.Item>
-              <Card title={item.title}>Card content</Card>
-            </List.Item>
-          )}
-        ></List>
+    <>
+      {gamesList.length === 0 ? (
+        <div className="Loading">
+          <Spin tip="Loading" size='large'>
+              <div className="content" />
+          </Spin>
+        </div>
       ) : (
-        <Spin tip="Loading">
-          <div className="content" />
-        </Spin>
+      <div className="App">
+          <List
+            grid={{
+              gutter: 16,
+              xs: 1,
+              sm: 2,
+              md: 4,
+              lg: 4,
+              xl: 6,
+              xxl: 3,
+            }}
+            dataSource={gamesList}
+            renderItem={(item) => (
+              <List.Item>
+                <Card title={item.title}>Card content</Card>
+              </List.Item>
+            )}
+          ></List>
+      </div>
       )}
-    </div>
+    </>
   );
 }
 
