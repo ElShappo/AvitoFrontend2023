@@ -4,7 +4,9 @@ import { Card, List, Spin, Typography, Empty, Button, Popover, Space, Layout, Pa
 import './App.css'
 
 import formatDate from './utils/formatDate';
-import {IGame, IFormattedSearchParams, Platform, Genre, Genres, Sort} from './types';
+import formatSearchParams from './utils/formatSearchParams';
+import {platforms, genres, sorts} from './constants';
+import {IGame, Platform, Genres, Sort} from './types';
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
@@ -17,23 +19,9 @@ function App() {
   let [page, setPage] = useState(1); // page No currently shown
   let [pageSize, setPageSize] = useState(10); // number of games on a single page
 
-  const platforms: Platform[] = ['any platform', 'pc', 'browser']; // list of all platforms
   let [platform, setPlatform] = useState<Platform>('any platform'); // current platform
-
-  let [genres, setGenres] = useState<Genre[]>([]); // list of all genres
   let [pickedGenres, setPickedGenres] = useState<Genres>('any genre'); // current genres
-
-  const sorts: Sort[] = ['relevance', 'alphabetical', 'popularity', 'release-date']; // list of all sorts
   let [sort, setSort] = useState<Sort>('relevance'); // current sort
-  
-  function formatSearchParams(searchParams: Platform[] | Genre[] | Sort[]): IFormattedSearchParams[] {
-    return searchParams.map(item => {
-      return {
-        value: item,
-        label: item
-      }
-    });
-  }
 
   function onPlatformChange(value: Platform) {
     console.log(value);
@@ -91,36 +79,36 @@ function App() {
         setHasError(true);
       }
     };
-    const fetchGenres = async () => {
-      // it is definitely possible to hard-code all genres by hand but why bother when you can first try fetching them from the server?
-      // that's exactly what we're trying to do in the first place. If however smth goes wrong, we have to fallback to listing genres by hand
-      try {
-        let response = await fetch('http://localhost:3002/genres');
-        let json = await response.json();
+    // const fetchGenres = async () => {
+    //   // it is definitely possible to hard-code all genres by hand but why bother when you can first try fetching them from the server?
+    //   // that's exactly what we're trying to do in the first place. If however smth goes wrong, we have to fallback to listing genres by hand
+    //   try {
+    //     let response = await fetch('http://localhost:3002/genres');
+    //     let json = await response.json();
         
-        console.log(response.status);
-        console.log(json);
+    //     console.log(response.status);
+    //     console.log(json);
 
-        setGenres(json);
-      } catch (e) {
-        console.error(e);
+    //     setGenres(json);
+    //   } catch (e) {
+    //     console.error(e);
 
-        // fallback - we have to hard-code the genres
-        setGenres(["any genre", "mmorpg", "shooter", "strategy",
-          "moba", "racing", "sports", "social", "sandbox",
-          "open-world", "survival", "pvp", "pve", "pixel",
-          "voxel", "zombie", "turn-based", "first-person",
-          "third-Person", "top-down", "tank", "space",
-          "sailing", "side-scroller", "superhero",
-          "permadeath", "card", "battle-royale", "mmo",
-          "mmofps", "mmotps", "3d", "2d", "anime", "fantasy",
-          "sci-fi", "fighting", "action-rpg", "action",
-          "military", "martial-arts", "flight", "low-spec",
-          "tower-defense", "horror", "mmorts"]);
-      }
-    }
+    //     // fallback - we have to hard-code the genres
+    //     setGenres(["any genre", "mmorpg", "shooter", "strategy",
+    //       "moba", "racing", "sports", "social", "sandbox",
+    //       "open-world", "survival", "pvp", "pve", "pixel",
+    //       "voxel", "zombie", "turn-based", "first-person",
+    //       "third-Person", "top-down", "tank", "space",
+    //       "sailing", "side-scroller", "superhero",
+    //       "permadeath", "card", "battle-royale", "mmo",
+    //       "mmofps", "mmotps", "3d", "2d", "anime", "fantasy",
+    //       "sci-fi", "fighting", "action-rpg", "action",
+    //       "military", "martial-arts", "flight", "low-spec",
+    //       "tower-defense", "horror", "mmorts"]);
+    //   }
+    // }
     fetchGames();
-    fetchGenres();
+    // fetchGenres();
   }, [platform, pickedGenres, sort]);
   
 

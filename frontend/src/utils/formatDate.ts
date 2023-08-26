@@ -1,5 +1,6 @@
+// format date so it matches russian format
+// the rawDate is expected to be 'yyyy-mm-dd'
 function formatDate(rawDate: string) {
-    // format date so it matches russian format
     let date = new Date(rawDate);
 
     let year = date.getFullYear();
