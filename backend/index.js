@@ -12,7 +12,13 @@ app.get('/games', async (req, res) => {
   let url;
   let {platform, genres, sort} = req.query;
 
+  console.log(platform);
   console.log(genres);
+  console.log(sort);
+
+  if (platform === 'any platform') {
+    platform = 'all';
+  } 
 
   if (genres === 'any genre') {
     url = `https://www.freetogame.com/api/games?platform=${platform}&sort-by=${sort}`;
@@ -34,6 +40,7 @@ app.get('/genres', async (req, res) => {
   let text = await response.text();
   const html = new jsdom.JSDOM(text);
   let genres = html.window.document.querySelector(".modal-body").textContent;
+  genres = 'any genre,' + genres; 
   res.send(genres.trim().split(', '));
 });
 

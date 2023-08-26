@@ -21,14 +21,14 @@ interface IGame {
   freetogame_profile_url: string;
 }
 
-interface IFormattedGenre {
-  value: string;
+interface IFormattedSearchParams {
+  value: Platform | Genre | Sort;
   label: string;
 }
 
-type Platform = 'pc' | 'browser' | 'all';
+type Platform = 'any platform' | 'pc' | 'browser';
 
-type Genre = "mmorpg" | "shooter" | "strategy" |
+type Genre = "any genre" | "mmorpg" | "shooter" | "strategy" |
 "moba" | "racing" | "sports" | "social" | "sandbox" |
 "open-world" | "survival" | "pvp" | "pve" | "pixel" |
 "voxel" | "zombie" | "turn-based" | "first-person" |
@@ -40,20 +40,25 @@ type Genre = "mmorpg" | "shooter" | "strategy" |
 "military" | "martial-arts" | "flight" | "low-spec" |
 "tower-defense" | "horror" | "mmorts";
 
-type Sort = 'release-date' | 'popularity' | 'alphabetical' | 'relevance';
+type Sort = 'relevance' | 'alphabetical' | 'popularity' | 'release-date';
 
-type Genres = Genre | Genre[] | 'any genre';
+type Genres = Genre | Genre[];
 
 function App() {
   let [games, setGames] = useState<IGame[]>([]); // list of games to display
-  let [genres, setGenres] = useState<string[]>([]); // list of genres to display
+  let [genres, setGenres] = useState<Genre[]>([]); // list of genres to display
+
+  const platforms: Platform[] = ['any platform', 'pc', 'browser'];
+
   let [hasError, setHasError] = useState(false); // show error component istead of a list of games in case of an error
   let [page, setPage] = useState(1); // page No currently shown
   let [pageSize, setPageSize] = useState(10); // number of games on a single page
   
-  let [platform, setPlatform] = useState<Platform>('all');
+  let [platform, setPlatform] = useState<Platform>('any platform');
   let [pickedGenres, setPickedGenres] = useState<Genres>('any genre');
   let [sort, setSort] = useState<Sort>('relevance');
+
+  const sorts: Sort[] = ['relevance', 'alphabetical', 'popularity', 'release-date'];
 
   function formatDate(rawDate: string) {
     // format date so it matches russian format
@@ -69,17 +74,21 @@ function App() {
     return `${day}.${month}.${year}`;
   }
 
-  function formatGenres(genres: string[]): IFormattedGenre[] {
-    let result = [{value: 'any genre', label: 'any genre'}];
-    let buffer = genres.map((item, index) => {
+  function formatSearchParams(searchParams: Platform[] | Genre[] | Sort[]): IFormattedSearchParams[] {
+    return searchParams.map(item => {
       return {
         value: item,
         label: item
       }
     });
-    result.push(...buffer);
-    return result;
   }
+
+  function onPlatformChange(value: Platform) {
+    console.log(value);
+    setPlatform(value);
+    setPage(1);
+    setPageSize(10);
+  };
 
   function onGenresChange(value: Genres) {
     console.log(value);
@@ -87,10 +96,13 @@ function App() {
     setPage(1);
     setPageSize(10);
   };
-  
-  // const onSearch = (value: string) => {
-  //   console.log('search:', value);
-  // };
+
+  function onSortChange(value: Sort) {
+    console.log(value);
+    setSort(value);
+    setPage(1);
+    setPageSize(10);
+  };
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -104,6 +116,7 @@ function App() {
         if (typeof pickedGenres === 'string') {
           url = `http://localhost:3002/games?platform=${platform}&genres=${pickedGenres}&sort=${sort}`;
         } else {
+          // should be array
           url = `http://localhost:3002/games?platform=${platform}&sort=${sort}`
           for (let localGenre of pickedGenres) {
             url += `&genres=${localGenre}`;
@@ -141,7 +154,7 @@ function App() {
         console.error(e);
 
         // fallback - we have to hard-code the genres
-        setGenres(["mmorpg", "shooter", "strategy",
+        setGenres(["any genre", "mmorpg", "shooter", "strategy",
           "moba", "racing", "sports", "social", "sandbox",
           "open-world", "survival", "pvp", "pve", "pixel",
           "voxel", "zombie", "turn-based", "first-person",
@@ -151,7 +164,7 @@ function App() {
           "mmofps", "mmotps", "3d", "2d", "anime", "fantasy",
           "sci-fi", "fighting", "action-rpg", "action",
           "military", "martial-arts", "flight", "low-spec",
-          "tower-defense", "horror", "mmorts"])
+          "tower-defense", "horror", "mmorts"]);
       }
     }
     fetchGames();
@@ -187,14 +200,23 @@ function App() {
           <Content>
             <Select
               showSearch
-              placeholder="Choose a genre"
-              optionFilterProp="children"
+              onChange={onPlatformChange}
+              options={formatSearchParams(platforms)}
+              defaultValue={'any platform'}
+              style={{ width: "9em" }}
+            />
+            <Select
+              showSearch
               onChange={onGenresChange}
-              // onSearch={onSearch}
-              filterOption={(input, option) =>
-                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-              }
-              options={formatGenres(genres)}
+              options={formatSearchParams(genres)}
+              defaultValue={'any genre'}
+              style={{ width: "9em" }}
+            />
+            <Select
+              showSearch
+              onChange={onSortChange}
+              options={formatSearchParams(sorts)}
+              defaultValue={'relevance'}
               style={{ width: "9em" }}
             />
             <List
@@ -235,7 +257,7 @@ function App() {
           </Content>
 
           <Footer className="mainFooter">
-            <Pagination current={page} total={games.length} onChange={(page, pageSize) => {
+            <Pagination current={page} pageSize={pageSize} total={games.length} onChange={(page, pageSize) => {
               setPage(page);
               setPageSize(pageSize);
             }} />
