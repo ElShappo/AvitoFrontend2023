@@ -3,77 +3,29 @@ import { useState, useEffect } from 'react';
 import { Card, List, Spin, Typography, Empty, Button, Popover, Space, Layout, Pagination, Select } from 'antd';
 import './App.css'
 
+import formatDate from './utils/formatDate';
+import {IGame, IFormattedSearchParams, Platform, Genre, Genres, Sort} from './types';
+
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
 const { Meta } = Card;
 
-interface IGame {
-  id: number;
-  title: string;
-  thumbnail: string;
-  short_description: string;
-  game_url: string;
-  genre: string;
-  platform: string
-  publisher: string;
-  developer: string;
-  release_date: string;
-  freetogame_profile_url: string;
-}
-
-interface IFormattedSearchParams {
-  value: Platform | Genre | Sort;
-  label: string;
-}
-
-type Platform = 'any platform' | 'pc' | 'browser';
-
-type Genre = "any genre" | "mmorpg" | "shooter" | "strategy" |
-"moba" | "racing" | "sports" | "social" | "sandbox" |
-"open-world" | "survival" | "pvp" | "pve" | "pixel" |
-"voxel" | "zombie" | "turn-based" | "first-person" |
-"third-Person" | "top-down" | "tank" | "space" |
-"sailing" | "side-scroller" | "superhero" |
-"permadeath" | "card" | "battle-royale" | "mmo" |
-"mmofps" | "mmotps" | "3d" | "2d" | "anime" | "fantasy" |
-"sci-fi" | "fighting" | "action-rpg" | "action" |
-"military" | "martial-arts" | "flight" | "low-spec" |
-"tower-defense" | "horror" | "mmorts";
-
-type Sort = 'relevance' | 'alphabetical' | 'popularity' | 'release-date';
-
-type Genres = Genre | Genre[];
-
 function App() {
   let [games, setGames] = useState<IGame[]>([]); // list of games to display
-  let [genres, setGenres] = useState<Genre[]>([]); // list of genres to display
-
-  const platforms: Platform[] = ['any platform', 'pc', 'browser'];
-
   let [hasError, setHasError] = useState(false); // show error component istead of a list of games in case of an error
+
   let [page, setPage] = useState(1); // page No currently shown
   let [pageSize, setPageSize] = useState(10); // number of games on a single page
+
+  const platforms: Platform[] = ['any platform', 'pc', 'browser']; // list of all platforms
+  let [platform, setPlatform] = useState<Platform>('any platform'); // current platform
+
+  let [genres, setGenres] = useState<Genre[]>([]); // list of all genres
+  let [pickedGenres, setPickedGenres] = useState<Genres>('any genre'); // current genres
+
+  const sorts: Sort[] = ['relevance', 'alphabetical', 'popularity', 'release-date']; // list of all sorts
+  let [sort, setSort] = useState<Sort>('relevance'); // current sort
   
-  let [platform, setPlatform] = useState<Platform>('any platform');
-  let [pickedGenres, setPickedGenres] = useState<Genres>('any genre');
-  let [sort, setSort] = useState<Sort>('relevance');
-
-  const sorts: Sort[] = ['relevance', 'alphabetical', 'popularity', 'release-date'];
-
-  function formatDate(rawDate: string) {
-    // format date so it matches russian format
-    let date = new Date(rawDate);
-
-    let year = date.getFullYear();
-    let month = String(date.getMonth() + 1);  // getMonth() returns number from 0 to 11
-    let day = String(date.getDate());
-
-    if (month.length === 1) month = '0' + month; // if there is only one digit, append 0
-    if (day.length === 1) day = '0' + day; // if there is only one digit, append 0
-
-    return `${day}.${month}.${year}`;
-  }
-
   function formatSearchParams(searchParams: Platform[] | Genre[] | Sort[]): IFormattedSearchParams[] {
     return searchParams.map(item => {
       return {
