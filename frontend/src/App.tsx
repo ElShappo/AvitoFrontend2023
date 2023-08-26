@@ -79,36 +79,7 @@ function App() {
         setHasError(true);
       }
     };
-    // const fetchGenres = async () => {
-    //   // it is definitely possible to hard-code all genres by hand but why bother when you can first try fetching them from the server?
-    //   // that's exactly what we're trying to do in the first place. If however smth goes wrong, we have to fallback to listing genres by hand
-    //   try {
-    //     let response = await fetch('http://localhost:3002/genres');
-    //     let json = await response.json();
-        
-    //     console.log(response.status);
-    //     console.log(json);
-
-    //     setGenres(json);
-    //   } catch (e) {
-    //     console.error(e);
-
-    //     // fallback - we have to hard-code the genres
-    //     setGenres(["any genre", "mmorpg", "shooter", "strategy",
-    //       "moba", "racing", "sports", "social", "sandbox",
-    //       "open-world", "survival", "pvp", "pve", "pixel",
-    //       "voxel", "zombie", "turn-based", "first-person",
-    //       "third-Person", "top-down", "tank", "space",
-    //       "sailing", "side-scroller", "superhero",
-    //       "permadeath", "card", "battle-royale", "mmo",
-    //       "mmofps", "mmotps", "3d", "2d", "anime", "fantasy",
-    //       "sci-fi", "fighting", "action-rpg", "action",
-    //       "military", "martial-arts", "flight", "low-spec",
-    //       "tower-defense", "horror", "mmorts"]);
-    //   }
-    // }
     fetchGames();
-    // fetchGenres();
   }, [platform, pickedGenres, sort]);
   
 
