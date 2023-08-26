@@ -1,17 +1,16 @@
-import React, { Suspense } from 'react';
-import { useState, useEffect } from 'react';
+import React from 'react';
 import {
   createBrowserRouter,
-  RouterProvider, defer, json
+  RouterProvider, defer
 } from "react-router-dom";
 import MainPage from './pages/MainPage';
 import './App.css';
 
 async function loader({request} : any) {
   const requestUrl = new URL(request.url);
-  const platform = requestUrl.searchParams.get("platform");
-  const genres = requestUrl.searchParams.get("genres");
-  const sort = requestUrl.searchParams.get("sort");
+  const platform = requestUrl.searchParams.get("platform") || '';
+  const genres = requestUrl.searchParams.get("genres") || '';
+  const sort = requestUrl.searchParams.get("sort") || '';
 
   const fetchUrl = new URL('http://localhost:3002/games');
 
@@ -24,14 +23,19 @@ async function loader({request} : any) {
   if (sort) {
     fetchUrl.searchParams.set('sort', sort);
   }
-  const response = await fetch(fetchUrl);
-  const json = response.json();
+  console.log(platform);
+  console.log(genres);
+  console.log(sort);
+
+  const response = fetch(fetchUrl);
+  console.log(response);
+  console.log('hey!');
 
   return defer({
-    games: json,
-    platform: await platform,
-    genres: await genres,
-    sort: await sort
+    games: response.then(res => res.json()),
+    platform,
+    genres,
+    sort
   });
 }
 

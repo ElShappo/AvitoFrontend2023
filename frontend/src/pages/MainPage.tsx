@@ -68,6 +68,7 @@ function MainPage() {
                   onChange={onPlatformChange}
                   options={formatSearchParams(platforms)}
                   value={platform || 'any platform'}
+                  defaultValue='any platform'
                   style={{ width: "9em" }}
                 />
                 <Select
@@ -75,6 +76,7 @@ function MainPage() {
                   onChange={onGenresChange}
                   options={formatSearchParams(genres)}
                   value={pickedGenres || 'any genre'}
+                  defaultValue='any genre'
                   style={{ width: "9em" }}
                 />
                 <Select
@@ -82,6 +84,7 @@ function MainPage() {
                   onChange={onSortChange}
                   options={formatSearchParams(sorts)}
                   value={sort || 'relevance'}
+                  defaultValue='relevance'
                   style={{ width: "9em" }}
                 />
                 <List
