@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Game = () => {
+const GamePage = () => {
   return (
-    <div>Game</div>
+    <div>GamePage</div>
   )
 }
 
-export default Game
+export default GamePage
