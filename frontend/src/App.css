@@ -7,7 +7,6 @@
 .App {
     margin: 1em;
     margin-bottom: 0em;
-    height: 100vh;
 }
 
 .loading {
@@ -35,10 +34,10 @@
     padding: 2em 0 2.1em 0;
 }
 
-.App .mainFooter {
+.mainFooter {
     position: sticky;
-    z-index: 1;
     bottom: 0;
+    z-index: 1;
     width: 100%;
     display: flex;
     justify-content: center;

@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 import MainPage from './pages/MainPage';
 import GamePage from './pages/GamePage';
-import './App.css';
 
 function mainPageLoader({request} : any) {
   const requestUrl = new URL(request.url);
