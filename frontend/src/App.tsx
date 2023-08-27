@@ -4,9 +4,10 @@ import {
   RouterProvider, defer
 } from "react-router-dom";
 import MainPage from './pages/MainPage';
+import GamePage from './pages/GamePage';
 import './App.css';
 
-async function loader({request} : any) {
+function mainPageLoader({request} : any) {
   const requestUrl = new URL(request.url);
   const platform = requestUrl.searchParams.get("platform") || '';
   const genres = requestUrl.searchParams.get("genres") || '';
@@ -39,19 +40,32 @@ async function loader({request} : any) {
   });
 }
 
+function gamePageLoader({params} : any) {
+  const { id } = params;
+  console.log(`gamePageLoader with id = ${id}`);
+  let response = fetch(`http://localhost:3002/games/${id}`);
+  return defer({
+    game: response.then(res => res.json())
+  })
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
-    loader: loader,
-  }
+    loader: mainPageLoader,
+  },
+  {
+    path: "/game/:id",
+    element: <GamePage />,
+    loader: gamePageLoader,
+  },
+
 ]);
 
 function App() {
   return (
-    <div className="App">
       <RouterProvider router={router} />
-    </div>
   )
 }
 

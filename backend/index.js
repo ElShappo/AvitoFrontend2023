@@ -1,8 +1,11 @@
 import express from 'express';
 import jsdom from 'jsdom';
+import cors from 'cors';
 
 const app = express();
 const port = 3002;
+
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -48,6 +51,14 @@ app.get('/games', async (req, res) => {
   }
 
   let response = await fetch(url);
+  let json = await response.json();
+  res.send(json);
+});
+
+app.get('/games/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  let response = await fetch(`https://www.freetogame.com/api/game?id=${id}`);
   let json = await response.json();
   res.send(json);
 });
