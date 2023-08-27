@@ -26,7 +26,7 @@ const GamePage = () => {
               <Button type='primary' icon={<ArrowLeftOutlined />} size='large' onClick={() => navigate(-1)}>To games page</Button>
             </Layout.Header>
 
-            <Layout.Content className="tttttteeeeeest">
+            <Layout.Content style={{paddingTop: '1em'}}>
               <Row justify='center' align='middle' style={{height: "100%"}}>
                 <Col xs={18} sm={15} md={11} lg={10} xl={7}>
                   {game.platform !== "Web Browser" ? (
