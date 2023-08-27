@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useLoaderData, Await, useNavigate } from 'react-router-dom';
+import { useLoaderData, Await, useNavigate, Link } from 'react-router-dom';
 import { Card, List, Spin, Typography, Empty, Button, Popover, Space, Layout, Pagination, Select } from 'antd';
 
 import formatDate from '../utils/formatDate';
@@ -99,27 +99,29 @@ function MainPage() {
                   }}
                   dataSource={games.slice((page - 1) * pageSize, page * pageSize)}
                   renderItem={(item: any) => (
-                    <List.Item>
-                      <Card title={item.title} hoverable cover={
-                        <img alt={item.title} src={item.thumbnail} />
-                      }>
-                        <Meta description={
-                          <div style={{ fontSize: "1.1em" }}>
-                            <Space size="small" wrap>
-                              <Popover content="genre">
-                                <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.genre}</Button>
-                              </Popover>
-                              <Popover content="publisher">
-                                <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.publisher}</Button>
-                              </Popover>
-                              <Popover content="release date">
-                                <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{formatDate(item.release_date)}</Button>
-                              </Popover>
-                            </Space>
-                          </div>
-                        }/>
-                      </Card>
-                    </List.Item>
+                    <Link to={`/game/${item.id}`}>
+                      <List.Item>
+                        <Card title={item.title} hoverable cover={
+                          <img alt={item.title} src={item.thumbnail} />
+                        }>
+                          <Meta description={
+                            <div style={{ fontSize: "1.1em" }}>
+                              <Space size="small" wrap>
+                                <Popover content="genre">
+                                  <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.genre}</Button>
+                                </Popover>
+                                <Popover content="publisher">
+                                  <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{item.publisher}</Button>
+                                </Popover>
+                                <Popover content="release date">
+                                  <Button type="primary" style={{backgroundColor: "#f50"}} size="small">{formatDate(item.release_date)}</Button>
+                                </Popover>
+                              </Space>
+                            </div>
+                          }/>
+                        </Card>
+                      </List.Item>
+                    </Link>
                   )}
                 ></List>
               </Content>
