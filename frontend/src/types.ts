@@ -31,6 +31,4 @@ export type Genre = "any genre" | "mmorpg" | "shooter" | "strategy" |
     "military" | "martial-arts" | "flight" | "low-spec" |
     "tower-defense" | "horror" | "mmorts";
 
-export type Genres = Genre | Genre[];
-
 export type Sort = 'relevance' | 'alphabetical' | 'popularity' | 'release-date';

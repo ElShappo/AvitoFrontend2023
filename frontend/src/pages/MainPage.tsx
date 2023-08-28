@@ -1,12 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLoaderData, Await, useNavigate, Link } from 'react-router-dom';
-import { Card, List, Spin, Typography, Empty, Button, Popover, Space, Layout, Pagination, Select } from 'antd';
+import { Card, List, Typography, Button, Popover, Space, Layout, Pagination, Select } from 'antd';
 
 import formatDate from '../utils/formatDate';
 import formatSearchParams from '../utils/formatSearchParams';
 import {platforms, genres, sorts} from '../constants';
-import {IGame, Platform, Genres, Sort} from '../types';
+import {Platform, Genre, Sort} from '../types';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
 import '../App.css';
@@ -24,20 +24,20 @@ function MainPage() {
   let [pageSize, setPageSize] = useState(10); // number of games on a single page
 
   let [platform, setPlatform] = useState<Platform>(data.platform); // current platform
-  let [pickedGenres, setPickedGenres] = useState<Genres>(data.genres); // current genres
+  let [genre, setGenre] = useState<Genre>(data.genres); // current genres
   let [sort, setSort] = useState<Sort>(data.sort); // current sort
 
   function onPlatformChange(value: Platform) {
     console.log(value);
     setPlatform(value);
-    navigate(`/?platform=${value}&genres=${pickedGenres}&sort=${sort}`);
+    navigate(`/?platform=${value}&genres=${genre}&sort=${sort}`);
     setPage(1);
     setPageSize(10);
   };
 
-  function onGenresChange(value: Genres) {
+  function onGenresChange(value: Genre) {
     console.log(value);
-    setPickedGenres(value);
+    setGenre(value);
     navigate(`/?platform=${platform}&genres=${value}&sort=${sort}`);
     setPage(1);
     setPageSize(10);
@@ -46,7 +46,7 @@ function MainPage() {
   function onSortChange(value: Sort) {
     console.log(value);
     setSort(value);
-    navigate(`/?platform=${platform}&genres=${pickedGenres}&sort=${value}`);
+    navigate(`/?platform=${platform}&genres=${genre}&sort=${value}`);
     setPage(1);
     setPageSize(10);
   };
@@ -79,7 +79,7 @@ function MainPage() {
                         showSearch
                         onChange={onGenresChange}
                         options={formatSearchParams(genres)}
-                        value={pickedGenres || 'any genre'}
+                        value={genre || 'any genre'}
                         defaultValue='any genre'
                         style={{ width: "9em" }}
                       />
