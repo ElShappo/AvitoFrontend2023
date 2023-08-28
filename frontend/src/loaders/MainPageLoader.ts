@@ -1,24 +1,25 @@
 import { defer } from "react-router-dom";
+import { Platform, Genre, Sort } from "../types";
 
 function mainPageLoader({request} : any) {
     const requestUrl = new URL(request.url);
-    const platform = requestUrl.searchParams.get("platform") || '';
-    const genres = requestUrl.searchParams.get("genres") || '';
-    const sort = requestUrl.searchParams.get("sort") || '';
+    const platform = requestUrl.searchParams.get("platform");
+    const genre = requestUrl.searchParams.get("genre");
+    const sort = requestUrl.searchParams.get("sort");
   
     const fetchUrl = new URL('http://localhost:3002/games');
   
     if (platform) {
       fetchUrl.searchParams.set('platform', platform);
     }
-    if (genres) {
-      fetchUrl.searchParams.set('genres', genres);
+    if (genre) {
+      fetchUrl.searchParams.set('genre', genre);
     }
     if (sort) {
       fetchUrl.searchParams.set('sort', sort);
     }
     console.log(platform);
-    console.log(genres);
+    console.log(genre);
     console.log(sort);
   
     const response = fetch(fetchUrl);
@@ -28,7 +29,7 @@ function mainPageLoader({request} : any) {
     return defer({
       games: response.then(res => res.json()),
       platform,
-      genres,
+      genre,
       sort
     });
 }
