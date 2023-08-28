@@ -1,5 +1,4 @@
 import express from 'express';
-import jsdom from 'jsdom';
 import cors from 'cors';
 
 const app = express();
@@ -62,22 +61,6 @@ app.get('/games/:id', async (req, res) => {
   let json = await response.json();
   res.send(json);
 });
-
-// app.get('/genres', async (req, res) => {
-//   let response = await fetch('https://www.freetogame.com/api-doc');
-//   let text = await response.text();
-//   const html = new jsdom.JSDOM(text);
-//   let genres = html.window.document.querySelector(".modal-body").textContent;
-//   genres = 'any genre,' + genres; 
-//   res.send(genres.trim().split(', '));
-// });
-
-// app.get('/genre/:category', async (req, res) => {
-//   const { category } = req.params; 
-//   let response = await fetch(`https://www.freetogame.com/api/games?category=${category}`);
-//   let json = await response.json();
-//   res.send(json);
-// });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

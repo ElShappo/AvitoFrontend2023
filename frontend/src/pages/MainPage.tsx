@@ -100,9 +100,9 @@ function MainPage() {
                       xs: 1,
                       sm: 2,
                       md: 2,
-                      lg: 3,
-                      xl: 3,
-                      xxl: 4,
+                      lg: 2,
+                      xl: 4,
+                      xxl: 5,
                     }}
                     dataSource={games.slice((page - 1) * pageSize, page * pageSize)}
                     renderItem={(item: any) => (
