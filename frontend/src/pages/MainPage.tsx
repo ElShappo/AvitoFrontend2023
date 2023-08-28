@@ -71,24 +71,21 @@ function MainPage() {
                         showSearch
                         onChange={onPlatformChange}
                         options={formatSearchParams(platforms)}
-                        value={platform || 'any platform'}
-                        defaultValue='any platform'
+                        value={platform}
                         style={{ width: "9em" }}
                       />
                       <Select
                         showSearch
                         onChange={onGenresChange}
                         options={formatSearchParams(genres)}
-                        value={genre || 'any genre'}
-                        defaultValue='any genre'
+                        value={genre}
                         style={{ width: "9em" }}
                       />
                       <Select
                         showSearch
                         onChange={onSortChange}
                         options={formatSearchParams(sorts)}
-                        value={sort || 'relevance'}
-                        defaultValue='relevance'
+                        value={sort}
                         style={{ width: "9em" }}
                       />
                     </Space>

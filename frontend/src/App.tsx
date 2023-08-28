@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage';
 import GamePage from './pages/GamePage';
 import mainPageLoader from './loaders/MainPageLoader';
 import gamePageLoader from './loaders/GamePageLoader';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     element: <GamePage />,
     loader: gamePageLoader,
   },
+  {
+    path: "*",
+    element: <NotFound />
+  }
 
 ]);
 

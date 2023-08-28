@@ -3,9 +3,9 @@ import { isPlatform, isGenre, isSort } from "../types";
 
 function mainPageLoader({request} : any) {
     const requestUrl = new URL(request.url);
-    const platform = requestUrl.searchParams.get("platform");
-    const genre = requestUrl.searchParams.get("genre");
-    const sort = requestUrl.searchParams.get("sort");
+    let platform = requestUrl.searchParams.get("platform");
+    let genre = requestUrl.searchParams.get("genre");
+    let sort = requestUrl.searchParams.get("sort");
 
     console.log(platform, genre, sort);
   
@@ -13,12 +13,18 @@ function mainPageLoader({request} : any) {
   
     if (isPlatform(platform)) {
       fetchUrl.searchParams.set('platform', platform);
+    } else {
+      platform = 'any platform';
     }
     if (isGenre(genre)) {
       fetchUrl.searchParams.set('genre', genre);
+    } else {
+      genre = 'any genre';
     }
     if (isSort(sort)) {
       fetchUrl.searchParams.set('sort', sort);
+    } else {
+      sort = 'relevance';
     }
     console.log(platform);
     console.log(genre);
