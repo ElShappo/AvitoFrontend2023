@@ -1,6 +1,6 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 import cors from 'cors';
-import {Platform, Genre, Sort, isPlatform, isGenre, isSort} from '../frontend/src/types'
+import {isPlatform, isGenre, isSort} from './types'
 
 const app = express();
 const port = 3002;
@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.get('/games', async (req, res) => {
+app.get('/games', async (req: Request, res: Response) => {
   let url;
   let {platform, genre, sort} = req.query;
 
@@ -26,22 +26,28 @@ app.get('/games', async (req, res) => {
       url.searchParams.set('platform', platform);
     }
   } else {
-    res.status(404);
-    res.send('Invalid platform.');
+    if (platform !== undefined) {
+      res.status(404).send('Invalid platform.');
+      return;
+    }
   }
   if (isGenre(genre) ) {
     if (genre !== 'any genre') {
       url.searchParams.set('category', genre);
     }
   } else {
-    res.status(404);
-    res.send('Invalid genre.');
+    if (genre !== undefined) {
+      res.status(404).send('Invalid genre.');
+      return;
+    }
   }
   if (isSort(sort) ) {
     url.searchParams.set('sort-by', sort);
   } else {
-    res.status(404);
-    res.send('No such sort');
+    if (sort !== undefined) {
+      res.status(404).send('Invalid sort.');
+      return;
+    }
   }
   
   let response = await fetch(url);
@@ -49,7 +55,7 @@ app.get('/games', async (req, res) => {
   res.send(json);
 });
 
-app.get('/games/:id', async (req, res) => {
+app.get('/games/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   console.log(id);
   let response = await fetch(`https://www.freetogame.com/api/game?id=${id}`);

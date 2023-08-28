@@ -6,6 +6,8 @@ function mainPageLoader({request} : any) {
     const platform = requestUrl.searchParams.get("platform");
     const genre = requestUrl.searchParams.get("genre");
     const sort = requestUrl.searchParams.get("sort");
+
+    console.log(platform, genre, sort);
   
     const fetchUrl = new URL('http://localhost:3002/games');
   
