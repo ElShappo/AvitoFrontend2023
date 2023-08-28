@@ -64,7 +64,6 @@ function MainPage() {
               </Header>
 
               <Content>
-                <Space direction='vertical' size={10} wrap>
                   <div>
                     <Space wrap>
                       <Select
@@ -128,7 +127,6 @@ function MainPage() {
                       </Link>
                     )}
                   ></List>
-                </Space>
               </Content>
 
               <Footer className="mainFooter">
