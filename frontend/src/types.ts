@@ -23,3 +23,15 @@ export type Platform = typeof platforms[number];
 export type Genre = typeof genres[number];
 export type Sort = typeof sorts[number];
 
+export function isPlatform(item: any): item is Platform {
+    return platforms.includes(item);
+}
+
+export function isGenre(item: any): item is Genre {
+    return genres.includes(item);
+}
+
+export function isSort(item: any): item is Sort {
+    return sorts.includes(item);
+}
+
