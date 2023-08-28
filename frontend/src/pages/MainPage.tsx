@@ -9,7 +9,7 @@ import {platforms, genres, sorts} from '../constants';
 import {Platform, Genre, Sort} from '../types';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
-import '../App.css';
+import './MainPage.css';
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
