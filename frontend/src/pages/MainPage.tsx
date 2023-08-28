@@ -100,6 +100,7 @@ function MainPage() {
                       xl: 4,
                       xxl: 5,
                     }}
+                    style={{ marginTop: "1em" }}
                     dataSource={games.slice((page - 1) * pageSize, page * pageSize)}
                     renderItem={(item: any) => (
                       <Link to={`/game/${item.id}`}>
