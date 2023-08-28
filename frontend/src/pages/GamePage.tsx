@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { useLoaderData, Await, useNavigate } from 'react-router-dom';
 import { Card, Carousel, Col, Row, Image, Button, Layout } from 'antd';
-import { SettingOutlined, ContainerOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { SettingOutlined, ContainerOutlined, ArrowLeftOutlined, FrownOutlined } from '@ant-design/icons';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import formatDate from '../utils/formatDate';
@@ -18,7 +18,7 @@ const GamePage = () => {
     <Suspense fallback={<Loading />}>
       <Await
         resolve={data.game}
-        errorElement={<Error />}
+        errorElement={<Error>Couldn't fetch the game <FrownOutlined /></Error>}
       >
         {(game) => (
           <Layout className='GamePage'>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useLoaderData, Await, useNavigate, Link } from 'react-router-dom';
 import { Card, List, Typography, Button, Popover, Space, Layout, Pagination, Select } from 'antd';
+import { FrownOutlined } from '@ant-design/icons';
 
 import formatDate from '../utils/formatDate';
 import formatSearchParams from '../utils/formatSearchParams';
@@ -55,7 +56,7 @@ function MainPage() {
       <React.Suspense fallback={<Loading />}>
         <Await
           resolve={data.games}
-          errorElement={<Error />}
+          errorElement={<Error>Couldn't fetch games <FrownOutlined /></Error>}
         >
           {(games) => (
             <Layout className="App">
