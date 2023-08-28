@@ -17,20 +17,20 @@ const { Meta } = Card;
 
 function MainPage() {
   const data: any = useLoaderData();
-  console.log(data);
   const navigate = useNavigate();
+  console.log(data);
 
   let [page, setPage] = useState(1); // page No currently shown
   let [pageSize, setPageSize] = useState(10); // number of games on a single page
 
   let [platform, setPlatform] = useState<Platform>(data.platform); // current platform
-  let [genre, setGenre] = useState<Genre>(data.genres); // current genres
+  let [genre, setGenre] = useState<Genre>(data.genre); // current genre
   let [sort, setSort] = useState<Sort>(data.sort); // current sort
 
   function onPlatformChange(value: Platform) {
     console.log(value);
     setPlatform(value);
-    navigate(`/?platform=${value}&genres=${genre}&sort=${sort}`);
+    navigate(`/?platform=${value}&genre=${genre}&sort=${sort}`);
     setPage(1);
     setPageSize(10);
   };
@@ -38,7 +38,7 @@ function MainPage() {
   function onGenresChange(value: Genre) {
     console.log(value);
     setGenre(value);
-    navigate(`/?platform=${platform}&genres=${value}&sort=${sort}`);
+    navigate(`/?platform=${platform}&genre=${value}&sort=${sort}`);
     setPage(1);
     setPageSize(10);
   };
@@ -46,7 +46,7 @@ function MainPage() {
   function onSortChange(value: Sort) {
     console.log(value);
     setSort(value);
-    navigate(`/?platform=${platform}&genres=${genre}&sort=${value}`);
+    navigate(`/?platform=${platform}&genre=${genre}&sort=${value}`);
     setPage(1);
     setPageSize(10);
   };

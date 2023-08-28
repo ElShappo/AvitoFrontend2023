@@ -1,3 +1,5 @@
+import { platforms, genres, sorts } from "./constants";
+
 export interface IGame {
     id: number;
     title: string;
@@ -17,18 +19,7 @@ export interface IFormattedSearchParams {
     label: string;
 }
   
-export type Platform = 'any platform' | 'pc' | 'browser';
-  
-export type Genre = "any genre" | "mmorpg" | "shooter" | "strategy" |
-    "moba" | "racing" | "sports" | "social" | "sandbox" |
-    "open-world" | "survival" | "pvp" | "pve" | "pixel" |
-    "voxel" | "zombie" | "turn-based" | "first-person" |
-    "third-Person" | "top-down" | "tank" | "space" |
-    "sailing" | "side-scroller" | "superhero" |
-    "permadeath" | "card" | "battle-royale" | "mmo" |
-    "mmofps" | "mmotps" | "3d" | "2d" | "anime" | "fantasy" |
-    "sci-fi" | "fighting" | "action-rpg" | "action" |
-    "military" | "martial-arts" | "flight" | "low-spec" |
-    "tower-defense" | "horror" | "mmorts";
+export type Platform = typeof platforms[number];
+export type Genre = typeof genres[number];
+export type Sort = typeof sorts[number];
 
-export type Sort = 'relevance' | 'alphabetical' | 'popularity' | 'release-date';
