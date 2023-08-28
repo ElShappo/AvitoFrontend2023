@@ -1,5 +1,5 @@
 import { defer } from "react-router-dom";
-import { Platform, Genre, Sort } from "../types";
+import { isPlatform, isGenre, isSort } from "../types";
 
 function mainPageLoader({request} : any) {
     const requestUrl = new URL(request.url);
@@ -9,13 +9,13 @@ function mainPageLoader({request} : any) {
   
     const fetchUrl = new URL('http://localhost:3002/games');
   
-    if (platform) {
+    if (isPlatform(platform)) {
       fetchUrl.searchParams.set('platform', platform);
     }
-    if (genre) {
+    if (isGenre(genre)) {
       fetchUrl.searchParams.set('genre', genre);
     }
-    if (sort) {
+    if (isSort(sort)) {
       fetchUrl.searchParams.set('sort', sort);
     }
     console.log(platform);
