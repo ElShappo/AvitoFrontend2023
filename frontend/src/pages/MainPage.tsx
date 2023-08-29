@@ -8,8 +8,8 @@ import formatDate from '../utils/formatDate';
 import formatSearchParams from '../utils/formatSearchParams';
 import {platforms, genres, sorts} from '../constants';
 import {Platform, Genre, Sort} from '../types';
-import Error from '../components/Error';
-import Loading from '../components/Loading';
+import Error from '../components/ErrorComponent';
+import Loading from '../components/LoadingComponent';
 import './MainPage.css';
 
 const { Header, Content, Footer } = Layout;
@@ -22,7 +22,7 @@ function MainPage() {
 
   let [page, setPage] = useState(Number(data.page)); // page No currently shown
   let [pageSize, setPageSize] = useState(Number(data.pageSize)); // number of games on a single page
-  
+
   let [platform, setPlatform] = useState<Platform>(data.platform); // current platform
   let [genre, setGenre] = useState<Genre>(data.genre); // current genre
   let [sort, setSort] = useState<Sort>(data.sort); // current sort
