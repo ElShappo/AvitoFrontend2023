@@ -5,7 +5,6 @@
 }
 
 .App {
-    /* margin: 1em; */
     margin-bottom: 0em;
     min-height: 100vh;
     display: flex;
@@ -22,14 +21,12 @@
 
 .App .mainHeader {
     height: fit-content;
-    /* border-radius: 1em; */
     padding: 1.5em 0 1.5em 0;
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-
     position: sticky;
     z-index: 1;
     top: 0;
@@ -42,7 +39,6 @@
     text-align: center;
     color: rgb(146, 146, 192);
     margin-bottom: 0;
-    /* padding: 2em 0 2.1em 0; */
 }
 .App .selectSection {
     flex-grow: 1;
@@ -54,10 +50,6 @@
     align-content: center;
     flex-wrap: wrap;
     padding: 0 1em;
-    /* text-align: center;
-    color: rgb(146, 146, 192);
-    margin-bottom: 0;
-    padding: 2em 0 2.1em 0; */
 }
 
 .content {
