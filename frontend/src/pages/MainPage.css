@@ -53,6 +53,7 @@
     align-items: center;
     align-content: center;
     flex-wrap: wrap;
+    padding: 0 1em;
     /* text-align: center;
     color: rgb(146, 146, 192);
     margin-bottom: 0;
