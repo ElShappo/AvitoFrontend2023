@@ -5,7 +5,7 @@
 }
 
 .App {
-    margin: 1em;
+    /* margin: 1em; */
     margin-bottom: 0em;
     min-height: 100vh;
     display: flex;
@@ -22,15 +22,17 @@
 
 .App .mainHeader {
     height: fit-content;
-    /* max-height: 30vh; */
-    border-radius: 0.5em;
-    padding: 2em 0 2em 0;
-    /* margin-bottom: 1em; */
+    /* border-radius: 1em; */
+    padding: 1.5em 0 1.5em 0;
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
+
+    position: sticky;
+    z-index: 1;
+    top: 0;
     gap: 1em;
     background-color: rgb(18, 18, 107);
 }
@@ -55,6 +57,11 @@
     color: rgb(146, 146, 192);
     margin-bottom: 0;
     padding: 2em 0 2.1em 0; */
+}
+
+.content {
+    margin: 1em;
+    margin-top: 0;
 }
 
 .mainFooter {

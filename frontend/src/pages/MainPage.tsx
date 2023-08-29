@@ -96,7 +96,7 @@ function MainPage() {
                 </div>
               </Header>
 
-              <Content>
+              <Content className="content">
                   <List
                     grid={{
                       gutter: 16,
