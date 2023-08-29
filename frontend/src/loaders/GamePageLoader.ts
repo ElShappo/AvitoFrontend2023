@@ -20,7 +20,7 @@ function gamePageLoader({params} : any) {
       const developer = decodeURIComponent(cookieValues[cookieKeys.indexOf('developer')]);
       const screenshots = JSON.parse(decodeURIComponent(cookieValues[cookieKeys.indexOf('screenshots')]));
 
-      console.warn('Checking if values have been cached: ');
+      console.warn('Values have been cached: ');
 
       console.warn(`Cached platform: ${platform}`);
       console.warn(`Cached title: ${title}`);
@@ -52,7 +52,14 @@ function gamePageLoader({params} : any) {
     console.log(`gamePageLoader with id = ${id}`);
     let response = fetch(`http://localhost:3002/games/${id}`);
     return defer({
-      game: response.then(res => res.json())
+      game: response.then(res => {
+        console.warn(res.status);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error(`got status ${res.status} when trying to fetch game with id = ${id}`);
+        }
+      }).catch(e => console.error(e))
     })
 }
 

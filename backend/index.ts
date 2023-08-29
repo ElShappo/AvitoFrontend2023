@@ -59,6 +59,11 @@ app.get('/games/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   console.log(id);
   let response = await fetch(`https://www.freetogame.com/api/game?id=${id}`);
+  if (!response.ok) {
+    console.log('No such id');
+    res.status(404).json('Invalid id.');
+    return;
+  }
   let json = await response.json();
   res.send(json);
 });

@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useLoaderData, Await, useNavigate } from 'react-router-dom';
 import { Card, Carousel, Col, Row, Image, Button, Layout } from 'antd';
-import { SettingOutlined, ContainerOutlined, ArrowLeftOutlined, FrownOutlined } from '@ant-design/icons';
+import { SettingOutlined, ArrowLeftOutlined, FrownOutlined } from '@ant-design/icons';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import formatDate from '../utils/formatDate';
@@ -16,17 +16,20 @@ const GamePage = () => {
 
   useEffect(() => {
     const waitForData = async () => {
-      let json = await data.game;
-      for (let key in json) {
-        const value = json[key];
-        if (typeof value === 'string') {
-          document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; max-age=${5*60*1000}`;
-        } else {
-          document.cookie = `${encodeURIComponent(key)}=${JSON.stringify(value)}; max-age=${5*60*1000}`;
+      try {
+        let json = await data.game;
+        for (let key in json) {
+          const value = json[key];
+          if (typeof value === 'string') {
+            document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; max-age=${5*60*1000}`;
+          } else {
+            document.cookie = `${encodeURIComponent(key)}=${JSON.stringify(value)}; max-age=${5*60*1000}`;
+          }
         }
+      } catch (e) {
+        console.error('Error occurred while awaiting promise containing info about a game');
+        console.error(e);
       }
-      console.error(json);
-      console.error(document.cookie);
     }
     waitForData();
   }, [data])
