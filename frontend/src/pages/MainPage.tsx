@@ -71,35 +71,32 @@ function MainPage() {
             <Layout className="App">
               <Header className="mainHeader">
                 <Title className="mainTitle">Games</Title>
+                <div className="selectSection">
+                  <Select
+                    showSearch
+                    onChange={onPlatformChange}
+                    options={formatSearchParams(platforms)}
+                    value={platform}
+                    style={{ width: "9em" }}
+                  />
+                  <Select
+                    showSearch
+                    onChange={onGenresChange}
+                    options={formatSearchParams(genres)}
+                    value={genre}
+                    style={{ width: "9em" }}
+                  />
+                  <Select
+                    showSearch
+                    onChange={onSortChange}
+                    options={formatSearchParams(sorts)}
+                    value={sort}
+                    style={{ width: "9em" }}
+                  />
+                </div>
               </Header>
 
               <Content>
-                  <div>
-                    <Space wrap>
-                      <Select
-                        showSearch
-                        onChange={onPlatformChange}
-                        options={formatSearchParams(platforms)}
-                        value={platform}
-                        style={{ width: "9em" }}
-                      />
-                      <Select
-                        showSearch
-                        onChange={onGenresChange}
-                        options={formatSearchParams(genres)}
-                        value={genre}
-                        style={{ width: "9em" }}
-                      />
-                      <Select
-                        showSearch
-                        onChange={onSortChange}
-                        options={formatSearchParams(sorts)}
-                        value={sort}
-                        style={{ width: "9em" }}
-                      />
-                    </Space>
-                  </div>
-
                   <List
                     grid={{
                       gutter: 16,
