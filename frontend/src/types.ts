@@ -1,4 +1,4 @@
-import { platforms, genres, sorts } from "./constants";
+import { platforms, genres, sorts, pageSizes } from "./constants";
 
 export interface IGame {
     id: number;
@@ -22,6 +22,7 @@ export interface IFormattedSearchParams {
 export type Platform = typeof platforms[number];
 export type Genre = typeof genres[number];
 export type Sort = typeof sorts[number];
+export type PageSize = typeof pageSizes[number];
 
 export function isPlatform(item: any): item is Platform {
     return platforms.includes(item);
@@ -33,5 +34,9 @@ export function isGenre(item: any): item is Genre {
 
 export function isSort(item: any): item is Sort {
     return sorts.includes(item);
+}
+
+export function isPageSize(item: any): item is PageSize {
+    return pageSizes.includes(item);
 }
 

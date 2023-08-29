@@ -7,7 +7,7 @@ import { FrownOutlined } from '@ant-design/icons';
 import formatDate from '../utils/formatDate';
 import formatSearchParams from '../utils/formatSearchParams';
 import {platforms, genres, sorts} from '../constants';
-import {Platform, Genre, Sort} from '../types';
+import {Platform, Genre, Sort, PageSize} from '../types';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
 import './MainPage.css';
@@ -21,8 +21,10 @@ function MainPage() {
   const navigate = useNavigate();
   console.log(data);
 
-  let [page, setPage] = useState(1); // page No currently shown
-  let [pageSize, setPageSize] = useState(10); // number of games on a single page
+  let [page, setPage] = useState(Number(data.page)); // page No currently shown
+  let [pageSize, setPageSize] = useState(Number(data.pageSize)); // number of games on a single page
+
+  console.warn(page, pageSize);
 
   let [platform, setPlatform] = useState<Platform>(data.platform); // current platform
   let [genre, setGenre] = useState<Genre>(data.genre); // current genre
@@ -32,25 +34,32 @@ function MainPage() {
     console.log(value);
     setPlatform(value);
     navigate(`/?platform=${value}&genre=${genre}&sort=${sort}`);
-    setPage(1);
-    setPageSize(10);
+    // setPage(1);
+    // setPageSize(10);
   };
 
   function onGenresChange(value: Genre) {
     console.log(value);
     setGenre(value);
     navigate(`/?platform=${platform}&genre=${value}&sort=${sort}`);
-    setPage(1);
-    setPageSize(10);
+    // setPage(1);
+    // setPageSize(10);
   };
 
   function onSortChange(value: Sort) {
     console.log(value);
     setSort(value);
     navigate(`/?platform=${platform}&genre=${genre}&sort=${value}`);
-    setPage(1);
-    setPageSize(10);
+    // setPage(1);
+    // setPageSize(10);
   };
+
+  function onPaginationChange(newPage: number, newPageSize: number) {
+    console.warn(newPage, newPageSize);
+    setPage(newPage);
+    setPageSize(newPageSize);
+    navigate(`/?platform=${platform}&genre=${genre}&sort=${sort}&page=${newPage}&pageSize=${newPageSize}`);
+  }
 
   return (
       <React.Suspense fallback={<Loading />}>
@@ -132,10 +141,8 @@ function MainPage() {
               </Content>
 
               <Footer className="mainFooter">
-                <Pagination current={page} pageSize={pageSize} total={games.length} onChange={(page, pageSize) => {
-                  setPage(page);
-                  setPageSize(pageSize);
-                }} />
+                <Pagination current={page} pageSize={pageSize} total={games.length} pageSizeOptions={[20, 40, 60, 80, 100]} 
+                  onChange={(newPage, newPageSize) => onPaginationChange(newPage, newPageSize)} />
               </Footer>
             </Layout>
           )}

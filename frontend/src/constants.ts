@@ -13,3 +13,5 @@ export const genres = ["any genre", "mmorpg", "shooter", "strategy",
     "tower-defense", "horror", "mmorts"] as const; // list of all genres
 
 export const sorts = ['relevance', 'alphabetical', 'popularity', 'release-date'] as const; // list of all sorts
+
+export const pageSizes = [20, 40, 60, 80, 100, '20', '40', '60', '80', '100'] as const; // list of all pageSizes
