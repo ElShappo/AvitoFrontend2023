@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useLoaderData, Await, useNavigate } from 'react-router-dom';
 import { Card, Carousel, Col, Row, Image, Button, Layout } from 'antd';
 import { SettingOutlined, ContainerOutlined, ArrowLeftOutlined, FrownOutlined } from '@ant-design/icons';
@@ -13,6 +13,23 @@ const { Meta } = Card;
 const GamePage = () => {
   const data: any = useLoaderData();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const waitForData = async () => {
+      let json = await data.game;
+      for (let key in json) {
+        const value = json[key];
+        if (typeof value === 'string') {
+          document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; max-age=${5*60*1000}`;
+        } else {
+          document.cookie = `${encodeURIComponent(key)}=${JSON.stringify(value)}; max-age=${5*60*1000}`;
+        }
+      }
+      console.error(json);
+      console.error(document.cookie);
+    }
+    waitForData();
+  }, [data])
 
   return (
     <Suspense fallback={<Loading />}>
@@ -33,11 +50,11 @@ const GamePage = () => {
                     <Card
                       cover={<img alt={game.title} src={game.thumbnail} />}
                       actions={[
-                        <>
-                          <ModalComponent title={'Game description'} icon={<ContainerOutlined />}>
-                            { game.description }
-                          </ModalComponent>
-                        </>,
+                        // <>
+                        //   <ModalComponent title={'Game description'} icon={<ContainerOutlined />}>
+                        //     { game.description }
+                        //   </ModalComponent>
+                        // </>,
                         <>
                           <ModalComponent title={'System requirements'} icon={<SettingOutlined />}>
                             {Object.keys(game.minimum_system_requirements).map(key => (
@@ -64,13 +81,13 @@ const GamePage = () => {
                   ) : (
                     <Card
                       cover={<img alt={game.title} src={game.thumbnail} />}
-                      actions={[
-                        <>
-                          <ModalComponent title={'Game description'} icon={<ContainerOutlined />}>
-                            { game.description }
-                          </ModalComponent>
-                        </>
-                      ]}
+                      // actions={[
+                      //   <>
+                      //     <ModalComponent title={'Game description'} icon={<ContainerOutlined />}>
+                      //       { game.description }
+                      //     </ModalComponent>
+                      //   </>
+                      // ]}
                     >
                       <Meta
                         title={game.title}
