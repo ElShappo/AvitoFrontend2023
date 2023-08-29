@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLoaderData, Await, useNavigate, Link } from 'react-router-dom';
-import { Card, List, Typography, Button, Popover, Space, Layout, Pagination, Select } from 'antd';
+import { Card, List, Typography, Button, Popover, Space, Layout, Pagination, Select, Empty } from 'antd';
 import { FrownOutlined } from '@ant-design/icons';
 
 import formatDate from '../utils/formatDate';
@@ -96,7 +96,10 @@ function MainPage() {
                 </div>
               </Header>
 
-              <Content className="content">
+              <Content className={games.status === 0 ? "contentEmpty" : "content"}>
+                {games.status === 0 ? (
+                  <Empty />
+                ) : (
                   <List
                     grid={{
                       gutter: 16,
@@ -107,7 +110,6 @@ function MainPage() {
                       xl: 4,
                       xxl: 5,
                     }}
-                    style={{ marginTop: "1em" }}
                     dataSource={games.slice((page - 1) * pageSize, page * pageSize)}
                     renderItem={(item: any) => (
                       <Link to={`/game/${item.id}`}>
@@ -135,6 +137,7 @@ function MainPage() {
                       </Link>
                     )}
                   ></List>
+                )}
               </Content>
 
               <Footer className="mainFooter">
