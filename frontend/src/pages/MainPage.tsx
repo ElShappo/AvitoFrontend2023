@@ -19,13 +19,10 @@ const { Meta } = Card;
 function MainPage() {
   const data: any = useLoaderData();
   const navigate = useNavigate();
-  console.log(data);
 
   let [page, setPage] = useState(Number(data.page)); // page No currently shown
   let [pageSize, setPageSize] = useState(Number(data.pageSize)); // number of games on a single page
-
-  console.warn(page, pageSize);
-
+  
   let [platform, setPlatform] = useState<Platform>(data.platform); // current platform
   let [genre, setGenre] = useState<Genre>(data.genre); // current genre
   let [sort, setSort] = useState<Sort>(data.sort); // current sort
@@ -55,7 +52,7 @@ function MainPage() {
   };
 
   function onPaginationChange(newPage: number, newPageSize: number) {
-    console.warn(newPage, newPageSize);
+    console.log(newPage, newPageSize);
     setPage(newPage);
     setPageSize(newPageSize);
     navigate(`/?platform=${platform}&genre=${genre}&sort=${sort}&page=${newPage}&pageSize=${newPageSize}`);

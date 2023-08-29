@@ -2,6 +2,7 @@ import { defer } from "react-router-dom";
 
 function gamePageLoader({params} : any) {
     const { id } = params;
+    console.log(`Getting game with id = ${id}`);
 
     let cookies = document.cookie.split("; ");
     let cookieKeys = cookies.map(item => item.split('=')[0]);
@@ -48,12 +49,9 @@ function gamePageLoader({params} : any) {
         })
       })
     }
-
-    console.log(`gamePageLoader with id = ${id}`);
     let response = fetch(`http://localhost:3002/games/${id}`);
     return defer({
       game: response.then(res => {
-        console.warn(res.status);
         if (res.ok) {
           return res.json();
         } else {

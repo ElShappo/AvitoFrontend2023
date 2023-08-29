@@ -9,7 +9,12 @@ function mainPageLoader({request} : any) {
     let page = requestUrl.searchParams.get("page");
     let pageSize = requestUrl.searchParams.get("pageSize");
 
-    console.log(platform, genre, sort, page, pageSize);
+    console.log('Initial values of values of platform, genre, sort, page & pageSize: ')
+    console.log(platform);
+    console.log(genre);
+    console.log(sort);
+    console.log(page);
+    console.log(pageSize);
   
     const fetchUrl = new URL('http://localhost:3002/games');
   
@@ -32,13 +37,14 @@ function mainPageLoader({request} : any) {
       sort = 'relevance';
     }
     if (!page || !Number.isInteger(Number(page)) || Number(page) <= 0) {
-      console.warn('Invalid or empty page No specified: substituting it with \'1');
+      console.warn('Invalid or empty page No specified: substituting it with \'1\'');
       page = '1';
     }
     if (!isPageSize(pageSize)) {
-      console.warn('Invalid or empty pageSize specified: substituting it with \'20');
+      console.warn('Invalid or empty pageSize specified: substituting it with \'20\'');
       pageSize = '20';
     }
+    console.warn('Modified values of platform, genre, sort, page & pageSize: ');
     console.log(platform);
     console.log(genre);
     console.log(sort);

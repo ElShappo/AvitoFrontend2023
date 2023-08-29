@@ -112,7 +112,7 @@ const GamePage = () => {
                       <Image.PreviewGroup>
                     <Carousel autoplay autoplaySpeed={4000} infinite={false}>
                         {game.screenshots.map((item: any) => (
-                          <Image alt={game.title} src={item.image} fallback='/fallback.png' onError={() => console.error('error!')}/>
+                          <Image alt={game.title} src={item.image} fallback='/fallback.png' onError={() => console.error('could not load image')}/>
                         ))}
                     </Carousel>
                       </Image.PreviewGroup>
