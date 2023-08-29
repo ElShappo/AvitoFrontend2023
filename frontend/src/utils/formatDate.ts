@@ -3,6 +3,10 @@
 function formatDate(rawDate: string) {
     let date = new Date(rawDate);
 
+    if (!Date.parse(rawDate)) {
+        return '<no data>';
+    }
+
     let year = date.getFullYear();
     let month = String(date.getMonth() + 1);  // getMonth() returns number from 0 to 11
     let day = String(date.getDate());
