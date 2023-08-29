@@ -42,7 +42,7 @@ const GamePage = () => {
                           <ModalComponent title={'System requirements'} icon={<SettingOutlined />}>
                             {Object.keys(game.minimum_system_requirements).map(key => (
                                 <div>
-                                  {key}: {game.minimum_system_requirements[key]}
+                                  {key}: {game.minimum_system_requirements[key] || <i>{'<no data>'}</i>}
                                 </div>
                             ))}
                           </ModalComponent>
