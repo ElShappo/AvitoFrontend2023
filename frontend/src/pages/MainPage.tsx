@@ -7,7 +7,7 @@ import { FrownOutlined } from '@ant-design/icons';
 import formatDate from '../utils/formatDate';
 import formatSearchParams from '../utils/formatSearchParams';
 import {platforms, genres, sorts} from '../constants';
-import {Platform, Genre, Sort, PageSize} from '../types';
+import {Platform, Genre, Sort} from '../types';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
 import './MainPage.css';
@@ -34,24 +34,24 @@ function MainPage() {
     console.log(value);
     setPlatform(value);
     navigate(`/?platform=${value}&genre=${genre}&sort=${sort}`);
-    // setPage(1);
-    // setPageSize(10);
+    setPage(1);
+    setPageSize(20);
   };
 
   function onGenresChange(value: Genre) {
     console.log(value);
     setGenre(value);
     navigate(`/?platform=${platform}&genre=${value}&sort=${sort}`);
-    // setPage(1);
-    // setPageSize(10);
+    setPage(1);
+    setPageSize(20);
   };
 
   function onSortChange(value: Sort) {
     console.log(value);
     setSort(value);
     navigate(`/?platform=${platform}&genre=${genre}&sort=${value}`);
-    // setPage(1);
-    // setPageSize(10);
+    setPage(1);
+    setPageSize(20);
   };
 
   function onPaginationChange(newPage: number, newPageSize: number) {
@@ -60,7 +60,7 @@ function MainPage() {
     setPageSize(newPageSize);
     navigate(`/?platform=${platform}&genre=${genre}&sort=${sort}&page=${newPage}&pageSize=${newPageSize}`);
   }
-
+  
   return (
       <React.Suspense fallback={<Loading />}>
         <Await
