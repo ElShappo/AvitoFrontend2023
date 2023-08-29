@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.App {
+.mainPage {
     margin-bottom: 0em;
     min-height: 100vh;
     display: flex;
@@ -19,7 +19,7 @@
     height: 100vh;
 }
 
-.App .mainHeader {
+.mainPage .header {
     height: fit-content;
     padding: 1.5em 0 1.5em 0;
     display: flex;
@@ -34,13 +34,13 @@
     background-color: rgb(18, 18, 107);
 }
 
-.App .mainTitle {
+.mainPage .title {
     flex-grow: 8;
     text-align: center;
     color: rgb(146, 146, 192);
     margin-bottom: 0;
 }
-.App .selectSection {
+.mainPage .selectSection {
     flex-grow: 1;
     display: flex;
     flex-direction: row;

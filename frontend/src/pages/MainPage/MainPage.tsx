@@ -4,12 +4,12 @@ import { useLoaderData, Await, useNavigate, Link } from 'react-router-dom';
 import { Card, List, Typography, Button, Popover, Space, Layout, Pagination, Select, Empty } from 'antd';
 import { FrownOutlined } from '@ant-design/icons';
 
-import formatDate from '../utils/formatDate';
-import formatSearchParams from '../utils/formatSearchParams';
-import {platforms, genres, sorts} from '../constants';
-import {Platform, Genre, Sort} from '../types';
-import Error from '../components/ErrorComponent';
-import Loading from '../components/LoadingComponent';
+import formatDate from '../../utils/formatDate';
+import formatSearchParams from '../../utils/formatSearchParams';
+import {platforms, genres, sorts} from '../../constants';
+import {Platform, Genre, Sort} from '../../types';
+import Error from '../../components/ErrorComponent';
+import Loading from '../../components/LoadingComponent';
 import './MainPage.css';
 
 const { Header, Content, Footer } = Layout;
@@ -65,9 +65,9 @@ function MainPage() {
           errorElement={<Error>Couldn't fetch games <FrownOutlined /></Error>}
         >
           {(games) => (
-            <Layout className="App">
-              <Header className="mainHeader">
-                <Title className="mainTitle">Games</Title>
+            <Layout className="mainPage">
+              <Header className="header">
+                <Title className="title">Games</Title>
                 <div className="selectSection">
                   <Select
                     showSearch

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Empty, Row } from 'antd'
-import "./NotFound.css";
+import "./NotFoundPage.css";
 import Title from 'antd/es/typography/Title';
 
 const NotFound = () => {

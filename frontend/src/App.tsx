@@ -3,11 +3,11 @@ import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
-import MainPage from './pages/MainPage';
-import GamePage from './pages/GamePage';
+import MainPage from './pages/MainPage/MainPage';
+import GamePage from './pages/GamePage/GamePage';
 import mainPageLoader from './loaders/MainPageLoader';
 import gamePageLoader from './loaders/GamePageLoader';
-import NotFound from './pages/NotFound';
+import NotFound from './pages/NotFoundPage/NotFoundPage';
 
 const router = createBrowserRouter([
   {

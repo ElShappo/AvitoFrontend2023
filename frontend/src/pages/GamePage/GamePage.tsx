@@ -2,10 +2,10 @@ import React, { Suspense, useEffect } from 'react';
 import { useLoaderData, Await, useNavigate } from 'react-router-dom';
 import { Card, Carousel, Col, Row, Image, Button, Layout } from 'antd';
 import { SettingOutlined, ArrowLeftOutlined, FrownOutlined } from '@ant-design/icons';
-import Loading from '../components/LoadingComponent';
-import Error from '../components/ErrorComponent';
-import formatDate from '../utils/formatDate';
-import ModalComponent from '../components/ModalComponent';
+import Loading from '../../components/LoadingComponent';
+import Error from '../../components/ErrorComponent';
+import formatDate from '../../utils/formatDate';
+import ModalComponent from '../../components/ModalComponent';
 import './GamePage.css';
 
 const { Meta } = Card;
