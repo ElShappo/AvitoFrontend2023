@@ -13,6 +13,18 @@ export interface IGame {
     release_date: string;
     freetogame_profile_url: string;
 }
+
+type screenshot = {
+    id: number;
+    image: string;
+}
+
+export interface IGameDetails extends IGame {
+    status: string;
+    description: string;
+    minimum_system_requirements: object;
+    screenshots: screenshot[];
+}
   
 export interface IFormattedSearchParams {
     value: Platform | Genre | Sort;

@@ -49,6 +49,11 @@ function gamePageLoader({params} : any) {
         })
       })
     }
+    console.warn('No cached values. Will initiate fetch request');
+    console.error(`idIndex = ${idIndex}`);
+    console.error(`cookieValues[idIndex] = ${cookieValues[idIndex]}`);
+    console.error(`passed id = ${id}`);
+    
     let response = fetch(`http://localhost:3002/games/${id}`);
     return defer({
       game: response.then(res => {

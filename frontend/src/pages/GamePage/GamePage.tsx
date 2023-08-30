@@ -7,6 +7,7 @@ import Error from '../../components/ErrorComponent';
 import formatDate from '../../utils/formatDate';
 import ModalComponent from '../../components/ModalComponent';
 import './GamePage.css';
+import { IGameDetails } from '../../types';
 
 const { Meta } = Card;
 
@@ -17,13 +18,19 @@ const GamePage = () => {
   useEffect(() => {
     const waitForData = async () => {
       try {
-        let json = await data.game;
-        for (let key in json) {
-          const value = json[key];
-          if (typeof value === 'string') {
-            document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; max-age=${5*60*1000}`;
+        let json = await data.game as IGameDetails;
+        for (let key of Object.keys(json)) {
+          const value = json[key as keyof IGameDetails];
+
+          if (key === 'description' || key === 'status') {
+            console.warn(`Skipping caching ${key}`);
+            continue;
+          }
+          console.warn(`Preparing to cache ${key}=${value}`);
+          if (typeof value === 'string' || typeof value === 'number') {
+            document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; max-age=${5*60}`;
           } else {
-            document.cookie = `${encodeURIComponent(key)}=${JSON.stringify(value)}; max-age=${5*60*1000}`;
+            document.cookie = `${encodeURIComponent(key)}=${JSON.stringify(value)}; max-age=${5*60}`;
           }
         }
       } catch (e) {
